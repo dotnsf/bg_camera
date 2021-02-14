@@ -58,8 +58,8 @@ var bg_camera = (function(){
   };
 
   function handleResize(){
-    GRAPH_CANVAS.width = GRAPH_CANVS.clientWidth;
-    GRAPH_CANVAS.height = GRAPH_CANVS.clientHeight;
+    GRAPH_CANVAS.width = GRAPH_CANVAS.clientWidth;
+    GRAPH_CANVAS.height = GRAPH_CANVAS.clientHeight;
   };
 
   public.toggleMonitoring = function(){
