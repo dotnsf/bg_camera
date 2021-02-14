@@ -259,7 +259,7 @@
 
 				// Initialize the heart rate monitor
 				const bpmElement = document.getElementById("bpm-value");
-				heartRateMonitor.initialize({
+				bg_camera.initialize({
 					videoElement: document.getElementById("camera-feed"),
 					samplingCanvas: document.getElementById("sampling-canvas"),
 					graphCanvas: document.getElementById("graph-canvas"),
@@ -274,12 +274,12 @@
 					.getElementById("bpm-display-container")
 					.addEventListener(
 						"click",
-						heartRateMonitor.toggleMonitoring
+						bg_camera.toggleMonitoring
 					);
 
 				document.documentElement.addEventListener("keyup", (event) => {
 					if (event.key === " ") {
-						heartRateMonitor.toggleMonitoring();
+						bg_camera.toggleMonitoring();
 					}
 				});
 			});

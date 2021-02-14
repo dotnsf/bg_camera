@@ -150,7 +150,7 @@ var bg_camera = (function(){
 
   async function setTorchStatus( stream, status ){
     try{
-      var track = stream.getVideoTracks()0];
+      var track = stream.getVideoTracks()[0];
       await track.applyConstraints({ advanced: [{ torch: status }] });
     }catch( err ){
       alert( "Starting torch failed! : " + err );
