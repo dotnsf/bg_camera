@@ -21,6 +21,7 @@ var bg_camera = (function(){
 
   var public = {};
 
+  //. 指定したキャンバス内のピクセル単位での平均輝度を計算
   function averageBrightness( canvas, context ){
     var pixelData = context.getImageData(
       0, 0, canvas.width, canvas.height
@@ -57,11 +58,13 @@ var bg_camera = (function(){
     handleResize();
   };
 
+  //. グラフの描画領域をクライアントサイズから取得
   function handleResize(){
     GRAPH_CANVAS.width = GRAPH_CANVAS.clientWidth;
     GRAPH_CANVAS.height = GRAPH_CANVAS.clientHeight;
   };
 
+  //. 計測するかしないかのトグル処理
   public.toggleMonitoring = function(){
     MONITORING ? stopMonitoring() : startMonitoring();
   };
@@ -93,7 +96,7 @@ var bg_camera = (function(){
       throw Error( 'Unable to start video stream' );
     }
 
-    //. トーチON
+    //. トーチON (?)
     try{
       setTorchStatus( VIDEO_STREAM, true );
     }catch( e ){
@@ -107,6 +110,7 @@ var bg_camera = (function(){
     VIDEO_ELEMENT.play();
     MONITORING = true;
 
+    //. ディレイをかけてからモニターループ開始
     setTimeout( async function(){
       monitorLoop();
     }, START_DELAY );
@@ -120,13 +124,17 @@ var bg_camera = (function(){
     MONITORING = false;
   };
 
+  //. モニターループ
   function monitorLoop(){
+    //. ある瞬間の状況を処理
     processFrame();
     if( MONITORING ){
+      //. モニタリング中はループ処理を続ける
       window.requestAnimationFrame( monitorLoop );
     }
   };
 
+  //. バッファリセット
   function resetBuffer(){
     SAMPLE_BUFFER.length = 0;
   };
