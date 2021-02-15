@@ -22,7 +22,7 @@
 				--page-color: #ddd;
 				--text-color-muted: #666;
 				--graph-background: transparent;
-				--graph-color: #f76;
+				--graph-color: #67f;
 				--backdrop-background: rgba(0, 0, 0, 0.3);
 				--nav-item-background: #151515;
 			}
@@ -92,52 +92,6 @@
 
 		<script src="./js/bg_camera.js"></script>
 		<script>
-			/*
-			function openModal(name) {
-				document
-					.querySelector(`.modal[data-name='${name}']`)
-					.classList.add("open");
-			}
-
-			function setupNav() {
-				document
-					.querySelector("button.menu-toggle")
-					.addEventListener("click", () => {
-						document
-							.querySelector("nav.menu")
-							.classList.toggle("open");
-					});
-				document.querySelectorAll("nav a").forEach((link) => {
-					link.addEventListener("click", (event) => {
-						event.preventDefault();
-						document
-							.querySelector("nav.menu")
-							.classList.toggle("open");
-
-						const modalName = event.target.getAttribute(
-							"data-modal-name"
-						);
-						openModal(modalName);
-					});
-				});
-			}
-
-			function setupModals() {
-				document.querySelectorAll(".modal").forEach((modal) => {
-					modal.addEventListener("click", (event) => {
-						if (event.originalTarget === modal) {
-							modal.classList.remove("open");
-						}
-					});
-					modal
-						.querySelector("button.close")
-						.addEventListener("click", () => {
-							modal.classList.remove("open");
-						});
-				});
-			}
-			*/
-
 			document.addEventListener("DOMContentLoaded", function () {
 				// Initialize the heart rate monitor
 				const bpmElement = document.getElementById("bpm-value");
