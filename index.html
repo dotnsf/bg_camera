@@ -64,109 +64,7 @@
 						<canvas id="graph-canvas"></canvas>
 					</section>
 				</main>
-
-				<!--
-				<footer>
-					<button class="icon-button menu-toggle">
-						<span>Menu</span>
-					</button>
-					<nav class="menu" style="display: none">
-						<ul>
-							<li>
-								<a
-									href="#instructions"
-									data-modal-name="instructions"
-									>Instructions</a
-								>
-							</li>
-							<li>
-								<a href="#about" data-modal-name="about"
-									>About</a
-								>
-							</li>
-							<li class="debug-menu-item" style="display: none">
-								<a href="#about" data-modal-name="debug"
-									>Debug</a
-								>
-							</li>
-						</ul>
-					</nav>
-				</footer>
-				-->
 			</div>
-
-			<!--
-			<div class="modal" data-name="instructions">
-				<div class="modal-box">
-					<div class="heading">
-						<h1>Instructions</h1>
-						<button class="icon-button close">
-							<span>Close</span>
-						</button>
-					</div>
-					<div class="content">
-						<h2>Measureing your heart rate</h2>
-						<p>
-							To measure your heart rate first place the tip of
-							your index finger on the back of your device so that
-							it covers both the camera and the flashlight. You
-							can then start the measurement by tapping the circle
-							at the center of the screen.
-						</p>
-
-						<h2>Tips</h2>
-						<p>
-							Keep your finger as still as possible as even slight
-							movements can disrupt the measurement. When the
-							graph is showing a distinct steady pattern of peaks
-							corresponding to your heart beats the measurement
-							should be accurate. If the graph is noisy or very
-							irregular you need to keep your finger more steady
-							or possibly adjust the way you're holding your
-							finger.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="modal" data-name="about">
-				<div class="modal-box">
-					<div class="heading">
-						<h1>About</h1>
-						<button class="icon-button close">
-							<span>Close</span>
-						</button>
-					</div>
-					<div class="content">
-						<h2>What is this?</h2>
-						<p>
-							This is an online heart rate monitor. It uses your
-							devices camera to measure your heart beat from your
-							finger tip. It works by measureing how much light is
-							reflected through your finger into the camera. As
-							your heart pumps blood through your finger the
-							brightness fluctuates with every beat, and that is
-							used to detect your heart rate.
-						</p>
-						<h2>Privacy</h2>
-						<p>
-							This app contains no analytics, tracking, adverts,
-							cookies or any other such things. No data is
-							collected.
-						</p>
-						<h2>Code</h2>
-						<p>
-							This project is open source software. For more info
-							<a
-								target="_blank"
-								href="https://github.com/dotnsf/bg_camera"
-								>check out the GitHub repository</a
-							>.
-						</p>
-					</div>
-				</div>
-			</div>
-			-->
 
 			<div class="modal" data-name="debug">
 				<div class="modal-box">
@@ -194,13 +92,13 @@
 
 		<script src="./js/bg_camera.js"></script>
 		<script>
+			/*
 			function openModal(name) {
 				document
 					.querySelector(`.modal[data-name='${name}']`)
 					.classList.add("open");
 			}
 
-			/*
 			function setupNav() {
 				document
 					.querySelector("button.menu-toggle")
@@ -241,30 +139,6 @@
 			*/
 
 			document.addEventListener("DOMContentLoaded", function () {
-				/*
-				setupNav();
-				setupModals();
-
-				// Allow setting various flags and options via the hash fragment
-				const hash = location.hash.length
-					? location.hash.substring(1)
-					: "";
-				const flags = hash.split(",");
-
-				// Debug mode
-				if (flags.includes("debug")) {
-					// Force refreshing CSS in debug mode
-					const style = document.getElementById("style");
-					style.setAttribute(
-						"href",
-						style.getAttribute("href") + "?" + Date.now()
-					);
-
-					document.querySelector(".debug-menu-item").style.display =
-						"block";
-				}
-				*/
-
 				// Initialize the heart rate monitor
 				const bpmElement = document.getElementById("bpm-value");
 				bg_camera.initialize({
