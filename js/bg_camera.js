@@ -4,7 +4,7 @@ var bg_camera = (function(){
   var IMAGE_HEIGHT = 30;
   var SAMPLE_BUFFER = [];
   var MAX_SAMPLES = 60 * 5; //. 60 samples per second * max 5 seconds
-  var START_DELAY = 3000; //1500;
+  var START_DELAY = 1500;
 
   var ON_BPM_CHANGE = null;
   var VIDEO_ELEMENT = null;  
@@ -164,6 +164,7 @@ var bg_camera = (function(){
     return stream;
   };
 
+  //. トーチ状態の ON/OFF 設定
   async function setTorchStatus( stream, status ){
     try{
       var track = stream.getVideoTracks()[0];
@@ -174,6 +175,7 @@ var bg_camera = (function(){
     }
   };
 
+  //. bpm 値を表示する
   function setBpmDisplay( bpm ){
     ON_BPM_CHANGE( bpm );
   };
@@ -250,6 +252,7 @@ var bg_camera = (function(){
     return crossingsSamples;
   };
 
+  //. BPM （１分あたりの脈拍数）の計算
   function calculateBpm( samples ){
     if( samples.length < 2 ){
       return;
@@ -259,6 +262,7 @@ var bg_camera = (function(){
     return 60000 / averageInterval;
   };
 
+  //. 折れ線グラフ描画
   function drawGraph( dataStats ){
     var xScaling = GRAPH_CANVAS.width / MAX_SAMPLES;
     var xOffset = ( MAX_SAMPLES - SAMPLE_BUFFER.length ) * xScaling;
