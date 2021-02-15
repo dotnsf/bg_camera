@@ -4,7 +4,7 @@ var bg_camera = (function(){
   var IMAGE_HEIGHT = 30;
   var SAMPLE_BUFFER = [];
   var MAX_SAMPLES = 60 * 5; //. 60 samples per second * max 5 seconds
-  var START_DELAY = 1500;
+  var START_DELAY = 3000; //1500;
 
   var ON_BPM_CHANGE = null;
   var VIDEO_ELEMENT = null;  
