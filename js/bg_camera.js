@@ -66,6 +66,7 @@ var bg_camera = (function(){
     MONITORING ? stopMonitoring() : startMonitoring();
   };
 
+  //. 動画撮影可能なカメラデバイスの取得
   async function getCamera(){
     var devices = await navigator.mediaDevices.enumerateDevices();
     var cameras = devices.filter(
@@ -77,25 +78,29 @@ var bg_camera = (function(){
     return cameras[cameras.length-1];
   }
 
+  //. 撮影（＝モニタリング）開始
   async function startMonitoring(){
-    /*
     resetBuffer();
     handleResize();
     setBpmDisplay( "" );
-    */
 
+    //. カメラ取得
     var camera = await getCamera();
+
+    //. カメラストリームの取得
     VIDEO_STREAM = await startCameraStream( camera );
     if( !VIDEO_STREAM ){
       throw Error( 'Unable to start video stream' );
     }
 
+    //. トーチON
     try{
       setTorchStatus( VIDEO_STREAM, true );
     }catch( e ){
       alert( "Error: " + e );
     }
 
+    //. カメラで撮影した映像を <video> で再生
     SAMPLING_CANVAS.width = IMAGE_WIDTH;
     SAMPLING_CANVAS.height = IMAGE_HEIGHT;
     VIDEO_ELEMENT.srcObject = VIDEO_STREAM;
@@ -107,6 +112,7 @@ var bg_camera = (function(){
     }, START_DELAY );
   };
 
+  //. 撮影（＝モニタリング）終了
   async function stopMonitoring(){
     setTorchStatus( VIDEO_STREAM, false );
     VIDEO_ELEMENT.pause();
@@ -125,9 +131,11 @@ var bg_camera = (function(){
     SAMPLE_BUFFER.length = 0;
   };
 
+  //. カメラ映像のストリームを開始する
   async function startCameraStream( camera ){
     var stream = null;
     try{
+      //. カメラストリームを取得
       stream = await navigator.mediaDevices.getUserMedia({
         video: {
           deviceId: camera.deviceId,
@@ -155,7 +163,6 @@ var bg_camera = (function(){
     }catch( err ){
       alert( "Starting torch failed! : " + err );
       return;
-
     }
   };
 
@@ -164,31 +171,37 @@ var bg_camera = (function(){
   };
 
   function processFrame(){
+    //. 動画の内容を Canvas に描画
     SAMPLING_CONTEXT.drawImage(
       VIDEO_ELEMENT, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT 
     );
 
+    //. キャンバス内の平均明るさを取得
     var value = averageBrightness( SAMPLING_CANVAS, SAMPLING_CONTEXT );
     var time = Date.now();
-
     SAMPLE_BUFFER.push( { value, time } );
     if( SAMPLE_BUFFER.length > MAX_SAMPLES ){
       SAMPLE_BUFFER.shift();
     }
 
+    //. 明るさの推移を分析
     var dataStats = analyzeData( SAMPLE_BUFFER );
+    //. BPM を計算
     var bpm = calculateBpm( dataStats.crossings );
-
     if( bpm ){
+      //. BPM を描画
       setBpmDisplay( Math.round( bpm ) );
     }
 
+    //. 分析結果をグラフに描画
     drawGraph( dataStats );
   };
 
   function analyzeData( samples ){
+    //. 明るさの平均値を取得
     var average = samples.map( (sample) => sample.value ).reduce( (a,c) => a + c ) / samples.length;
 
+    //. 明るさの最大値・最小値を取得
     var min = samples[0].value;
     var max = samples[0].value;
     samples.forEach( function( sample ){
@@ -199,10 +212,12 @@ var bg_camera = (function(){
         min = sample.value;
       }
     });
-
+    //. 明るさの変化幅を計算
     var range = max - min;
 
+    //. 平均値を横切った瞬間のサンプルを取り出す
     const crossings = getAverageCrossings( samples, average );
+
     return {
       average,
       min,
@@ -212,6 +227,7 @@ var bg_camera = (function(){
     };
   };
 
+  //. 平均値 average を横切った瞬間のサンプルを取り出す
   function getAverageCrossings( samples, average ){
     var crossingsSamples = [];
     var previousSample = samples[0];
